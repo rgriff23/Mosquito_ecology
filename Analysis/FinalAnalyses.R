@@ -139,83 +139,27 @@ newdata = data.frame(field.dist=0:20*10)
   # fitting a zero-inflated model improved model fit, and to determine whether a species
   # should be included (many rare species could not be adequately modeled)
 
-# Cx.sal
-i = 1
-linear[[i]] = glmmadmb(log1p(species[,"Cx.sal"]) ~ field.dist + (1|transect), family="nbinom")
-quadratic[[i]] = glmmadmb(log1p(species[,"Cx.sal"]) ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
-AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
-predicted[[i]] = predict(linear[[i]], newdata)
-names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- "Cx.sal"
-# Ae.albo
-i = 2
-linear[[i]] = glmmadmb(log1p(species[,"Ae.albo"]) ~ field.dist + (1|transect), family="nbinom")
-quadratic[[i]] = glmmadmb(log1p(species[,"Ae.albo"]) ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
-AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
-predicted[[i]] = predict(quadratic[[i]], newdata)
-names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- "Ae.albo"
-# Ae.cin
-i = 3
-linear[[i]] = glmmadmb(species[,"Ae.cin"] ~ field.dist + (1|transect), family="nbinom")
-quadratic[[i]] = glmmadmb(species[,"Ae.cin"] ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
-AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
-predicted[[i]] = predict(linear[[i]], newdata)
-names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- "Ae.cin"
-# Ae.vex
-i = 4
-linear[[i]] = glmmadmb(log1p(species[,"Ae.vex"]) ~ field.dist + (1|transect), family="nbinom")
-quadratic[[i]] = glmmadmb(log1p(species[,"Ae.vex"] )~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
-AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
-predicted[[i]] = predict(linear[[i]], newdata)
-names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- "Ae.vex"
-# Ps.fer
-i = 5
-linear[[i]] = glmmadmb(log1p(species[,"Ps.fer"]) ~ field.dist + (1|transect), family="nbinom", zeroInflation = TRUE)
-quadratic[[i]] = glmmadmb(log1p(species[,"Ps.fer"]) ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom", zeroInflation = TRUE)
-AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
-predicted[[i]] = predict(linear[[i]], newdata)
-names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- "Ps.fer"
-# Cx.err
-i = 6
-linear[[i]] = glmmadmb(species[,"Cx.err"] ~ field.dist + (1|transect), family="nbinom")
-quadratic[[i]] = glmmadmb(species[,"Cx.err"] ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
-AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
-predicted[[i]] = predict(linear[[i]], newdata)
-names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- "Cx.err"
-# Ps.col
-i = 7
-linear[[i]] = glmmadmb(log1p(species[,"Ps.col"]) ~ field.dist + (1|transect), family="nbinom")
-quadratic[[i]] = glmmadmb(log1p(species[,"Ps.col"]) ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
-AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
-predicted[[i]] = predict(linear[[i]], newdata)
-names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- "Ps.col"
-# Oc.tris
-i = 8
-linear[[i]] = glmmadmb(log1p(species[,"Oc.tris"]) ~ field.dist + (1|transect), family="nbinom")
-quadratic[[i]] = glmmadmb(log1p(species[,"Oc.tris"]) ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
-AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
-predicted[[i]] = predict(linear[[i]], newdata)
-names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- "Oc.tris"
-# Cx.pip.q
-i = 9
-linear[[i]] = glmmadmb(log1p(species[,"Cx.pip.q"]) ~ field.dist + (1|transect), family="nbinom")
-quadratic[[i]] = glmmadmb(log1p(species[,"Cx.pip.q"]) ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
-AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
-predicted[[i]] = predict(linear[[i]], newdata)
-names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- "Cx.pip.q"
-# An.quad
-i = 10
-linear[[i]] = glmmadmb(log1p(species[,"An.quad"]) ~ field.dist + (1|transect), family="nbinom")
-quadratic[[i]] = glmmadmb(log1p(species[,"An.quad"]) ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
-AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
-predicted[[i]] = predict(linear[[i]], newdata)
-names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- "An.quad"
-# An.punc
-i = 11
-linear[[i]] = glmmadmb(log1p(species[,"An.punc"]) ~ field.dist + (1|transect), family="nbinom")
-quadratic[[i]] = glmmadmb(log1p(species[,"An.punc"]) ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
-AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
-predicted[[i]] = predict(linear[[i]], newdata)
-names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- "An.punc"
+# Prepare data frame (species with >18 non-zero abundance values)
+species.common = species[,which(colSums(species>0)>18)]
+
+# Loop through common species
+# Log1p transform for all but Ae.cin and Cx.err
+# Add zero-inflation for Ps.fer
+for (i in 1:ncol(species.common)) {
+  if (names(species.common)[i] %in% c("Ae.cin", "Cx.err")) {
+    linear[[i]] = glmmadmb(species.common[,i] ~ field.dist + (1|transect), family="nbinom")
+    quadratic[[i]] = glmmadmb(species.common[,i] ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
+    print(names(species.common)[i])
+  } else {
+    if (names(species.common)[i] != "Ps.fer") {z = F} else {z = T}
+    linear[[i]] = glmmadmb(log1p(species.common[,i]) ~ field.dist + (1|transect), family="nbinom", zeroInflation=z)
+    quadratic[[i]] = glmmadmb(log1p(species.common[,i]) ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom", zeroInflation=z)
+    print(names(species.common)[i])
+    }
+  AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
+  predicted[[i]] = predict(linear[[i]], newdata)
+  names(linear)[i] <- names(quadratic)[i] <- names(predicted)[i] <- names(AICdiff)[i] <- names(species.common)[i]
+}
 
 # Make table of results
 BestModel = c()
@@ -261,7 +205,7 @@ for (i in names(linear)) {
   axis(side=1, at=c(0, 90, 100, 110, 200), labels = c("-100", "-10", "0", "10", "100"), cex.axis=0.5, tck=-0.03, mgp=c(2, 0.2, 0))
   axis(side=1, at=c(0, 100, 200), labels=c("(Field)", "(Edge)", "(Forest)"), tick=F, cex.axis=0.5, mgp=c(2,0.7,0))
   if (i %in% c("Ae.cin", "Cx.err")) {lines(exp(predicted[[i]]) ~ newdata$field.dist)} else {lines(expm1(exp(predicted[[i]])) ~ newdata$field.dist)}
-  mtext(long.names[which(names(linear)==i)], adj=0, cex=0.5, font=3)
+  mtext(long.names[which(names(linear)==i)], adj=0, cex=0.5, font=4)
   p = coefficients(summary(linear[[i]]))[2,"Pr(>|z|)"]
   if (p > 0.05) {p = "p > 0.05"}
   if (p < 0.05) {p = "p < 0.05*"}
