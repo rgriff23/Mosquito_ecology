@@ -34,7 +34,7 @@ Traps were set up at dusk and picked up at dawn. Once traps were collected, mosq
 
 We caught a total of 8028 female mosquitoes, representing 23 different species. Data were analyzed in R, with the help of the `vegan` community ecology package (Oksanan et al., 2015) and the `glmmADMB` package for fitting generalized linear mixed models (Fournier et al., 2012). Here is a table summarizing our mosquito data:
 
-![](./figures/Table1.png)
+![](./figures/AbundanceTable.png)
 
 First, we explored how mosquito communities as a whole vary across habitat types. We computed three different measures of mosquito community diversity for each trap site:
 

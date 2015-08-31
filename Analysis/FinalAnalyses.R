@@ -261,7 +261,7 @@ for (i in names(linear)) {
   axis(side=1, at=c(0, 90, 100, 110, 200), labels = c("-100", "-10", "0", "10", "100"), cex.axis=0.5, tck=-0.03, mgp=c(2, 0.2, 0))
   axis(side=1, at=c(0, 100, 200), labels=c("(Field)", "(Edge)", "(Forest)"), tick=F, cex.axis=0.5, mgp=c(2,0.7,0))
   if (i %in% c("Ae.cin", "Cx.err")) {lines(exp(predicted[[i]]) ~ newdata$field.dist)} else {lines(expm1(exp(predicted[[i]])) ~ newdata$field.dist)}
-  mtext(long.names[i], adj=0, cex=0.5, font=3)
+  mtext(long.names[which(names(linear)==i)], adj=0, cex=0.5, font=3)
   p = coefficients(summary(linear[[i]]))[2,"Pr(>|z|)"]
   if (p > 0.05) {p = "p > 0.05"}
   if (p < 0.05) {p = "p < 0.05*"}
