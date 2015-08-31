@@ -36,12 +36,12 @@ evenness = data.frame(Habitat = Habitat_f, Transect = data$Transect, Abundance =
 
 # Compute Shannon-Wiener diversity across habitat types
 shannondiv = c()
-for (i in 1:nrow(diversity.data)) {shannondiv[i] = diversity(diversity.data[i,1:23])}
+for (i in 1:nrow(species)) {shannondiv[i] = diversity(species[i,])}
 evenness = data.frame(evenness, ShannonDiversity=shannondiv)
 
 # Estimate rarefied richness across habitat types
 rarefied = c()
-for (i in 1:nrow(diversity.data)) {rarefied[i] = rarefy(diversity.data[i,1:23], sample=15)}
+for (i in 1:nrow(species)) {rarefied[i] = rarefy(species[i,], sample=15)}
 evenness = data.frame(evenness, Rarefied=rarefied)
 
 # ANOVAs to compare diversity across habitat types
@@ -63,9 +63,6 @@ boxplot(Rarefied~Habitat, data=evenness, at=box.spacing, boxwex=0.1, pch=20, cex
 ########################################################################################################################################
 # Partial canonincal correspondence analysis (Fig 3A-B)
 ########################################################################################################################################
-
-# with scaling=1, sites are centroids of species, they are plotted close to the species that tend to occur there
-# with scaling=2, species are centroids of sites, they are plotted close to the sites where they occur
 
 # Compute average square root transformation to dampen effects of large data points
 species.sqrt = sqrt(species)/data$TrapNights
@@ -149,12 +146,10 @@ for (i in 1:ncol(species.common)) {
   if (names(species.common)[i] %in% c("Ae.cin", "Cx.err")) {
     linear[[i]] = glmmadmb(species.common[,i] ~ field.dist + (1|transect), family="nbinom")
     quadratic[[i]] = glmmadmb(species.common[,i] ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom")
-    print(names(species.common)[i])
   } else {
     if (names(species.common)[i] != "Ps.fer") {z = F} else {z = T}
     linear[[i]] = glmmadmb(log1p(species.common[,i]) ~ field.dist + (1|transect), family="nbinom", zeroInflation=z)
     quadratic[[i]] = glmmadmb(log1p(species.common[,i]) ~ field.dist + I(field.dist^2) + (1|transect), family="nbinom", zeroInflation=z)
-    print(names(species.common)[i])
     }
   AICdiff[i] = AIC(quadratic[[i]]) - AIC(linear[[i]])
   predicted[[i]] = predict(linear[[i]], newdata)
