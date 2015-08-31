@@ -21,7 +21,8 @@ The **Analysis** folder contains all the data and code needed to reproduce our r
 ```
 install.packages("vegan")
 install.packages("plyr")
-install.packages("glmmADMB", repos=c("http://glmmadmb.r-forge.r-project.org/repos", getOption("repos")),type="source")
+install.packages("glmmADMB", repos=c("http://glmmadmb.r-forge.r-project.org/repos", 
+getOption("repos")), type="source")
 ```
 
 Note that `glmmADMB` is not available on CRAN. The code above worked for me, but if there are problems installing glmmADMB, see installation tips on the [glmmADMB package website](http://glmmadmb.r-forge.r-project.org/).
