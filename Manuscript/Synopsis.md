@@ -82,6 +82,8 @@ Additionally, more research is needed to understand the factors that determine m
 
 ## References
 
+- Cohen, W., and S. Goward. 2004. Landsat's role in ecological applications of remote sensing. Bioscience 54:535-545.
+
 - Fournier, D. A., H. J. Skaug, J. Ancheta, J. Ianelli, A. Magnusson, M. N. Maunder, A. Nielsen, and J. Sibert. 2012. AD Model Builder: using automatic differentiation for statistical inference of highly parameterized complex nonlinear models. Optimization Methods & Software 27:233-249.
 
 - Heck, K.L., van Belle, G., and D. Simberloff. 1975. Explicit Calculation of the Rarefaction Diversity Measurement and the Determination of Sufficient Sample Size. Ecology 56(6):1459.
