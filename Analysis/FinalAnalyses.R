@@ -195,11 +195,11 @@ layout(matrix(1:12, 4, 3))
 par(mar=c(2.9,3.2,1.5,1.5))
 long.names = c("Culex salinarius", "Aedes albopictus", "Aedes cinereus", "Aedes vexans", "Psorophora ferox", "Culex erraticus", "Psorophora columbiae", "Ochlerotatus triseriatus", "Culex pipiens/quinquefasciatus", "Anopheles quadrimaculatus", "Anopheles punctipennis")
 for (i in names(linear)) {
-  if (which(names(linear)==i) > 4) {ylab = ""} else {ylab = "Adbundance"}
-  plot(species[,i] ~ field.dist, ylab=ylab, xlab="", pch=20, cex=0.5, cex.axis=0.5, cex.lab=0.7, tck=-0.03, mgp=c(2, 0.2, 0), xaxt="n")
+  if (which(names(linear)==i) > 4) {ylab = ""} else {ylab = "log(adbundance + 1)"}
+  plot(log1p(species[,i]) ~ field.dist, ylab=ylab, xlab="", pch=20, cex=0.5, cex.axis=0.5, cex.lab=0.7, tck=-0.03, mgp=c(2, 0.2, 0), xaxt="n")
   axis(side=1, at=c(0, 90, 100, 110, 200), labels = c("-100", "-10", "0", "10", "100"), cex.axis=0.5, tck=-0.03, mgp=c(2, 0.2, 0))
   axis(side=1, at=c(0, 100, 200), labels=c("(Field)", "(Edge)", "(Forest)"), tick=F, cex.axis=0.5, mgp=c(2,0.7,0))
-  if (i %in% c("Ae.cin", "Cx.err")) {lines(exp(predicted[[i]]) ~ newdata$field.dist)} else {lines(expm1(exp(predicted[[i]])) ~ newdata$field.dist)}
+  if (i %in% c("Ae.cin", "Cx.err")) {lines(log1p(exp(predicted[[i]])) ~ newdata$field.dist)} else {lines(exp(predicted[[i]]) ~ newdata$field.dist)}
   mtext(long.names[which(names(linear)==i)], adj=0, cex=0.5, font=4)
   p = coefficients(summary(linear[[i]]))[2,"Pr(>|z|)"]
   if (p > 0.05) {p = "p > 0.05"}
@@ -252,7 +252,7 @@ layout(matrix(1:12, 4, 3))
 par(mar=c(2,2,3,1), mgp=c(2,0.2,0), tck=-0.02)
 box.spacing = 1:5/7
 x.lims = c(0,box.spacing[5] + box.spacing[1])
-long.names2 = c("Ochlerotatus canadensis", "Coquillettidea perturbans", "Anopheles crucians", "Ochlerotatus hendersoni", "Ochlerotatus atlanticus", "Ochlerotatus dupreei", "Psorophora cyanescens", "Psorophora howardi","Aedes japonicus", "Aedes japonicus", "Ochlerotatus infirmatus", "Psorophora ciliata", "Urotanaenia sapphirina")
+long.names2 = c("Ochlerotatus canadensis", "Coquillettidea perturbans", "Anopheles crucians", "Ochlerotatus hendersoni", "Ochlerotatus atlanticus", "Ochlerotatus dupreei", "Psorophora cyanescens", "Psorophora howardi","Aedes japonicus", "Ochlerotatus infirmatus", "Psorophora ciliata", "Urotanaenia sapphirina")
 
 for (i in names(species.rare)) {
   if (which(names(species.rare)==i) > 4) {ylab = ""} else {ylab = "Adbundance"}
