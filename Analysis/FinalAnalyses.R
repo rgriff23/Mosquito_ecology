@@ -51,14 +51,16 @@ anova(lm(Rarefied~Habitat, data=evenness))	# significant
 
 # Make boxplots of diversity measures across habitat types (Fig 2A-C in manuscript) 
 quartz()
-colors = c("darkgoldenrod4", "darkgoldenrod1", "lightgoldenrod2", "green", "darkgreen")
+par(mar=c(3,4,3,2), mfrow=c(2,2))
+colors = c("floralwhite", "lightgoldenrod1","chartreuse2", "chartreuse4", "darkgreen")
 box.spacing = 1:5/7
 x.lims = c(0,box.spacing[5] + box.spacing[1])
-layout(matrix(1:3,1,3))
-par(mar=c(3,2,3,1))
-boxplot(Richness~Habitat, data=evenness, at=box.spacing, boxwex=0.1, pch=20, cex=0.5, medlwd = 1, col=colors, xlim=x.lims, cex.axis=0.5, main="Richness")
-boxplot(ShannonDiversity~Habitat, data=evenness, at=box.spacing, boxwex=0.1, pch=20, cex=0.5, medlwd = 1, col=colors, xlim=x.lims, cex.axis=0.5, main="Shannon-Weiner diversity")
-boxplot(Rarefied~Habitat, data=evenness, at=box.spacing, boxwex=0.1, pch=20, cex=0.5, medlwd = 1, col=colors, xlim=x.lims, cex.axis=0.5, main="Rarefied richness")
+boxplot(Richness~Habitat, data=evenness, at=box.spacing, boxwex=0.1, pch=20, cex=0.5, medlwd = 1, col=colors, xlim=x.lims, cex.axis=0.5, ylab="Richness")
+mtext("A", adj=0, line=1)
+boxplot(ShannonDiversity~Habitat, data=evenness, at=box.spacing, boxwex=0.1, pch=20, cex=0.5, medlwd = 1, col=colors, xlim=x.lims, cex.axis=0.5, ylab="Shannon-Weiner diversity")
+mtext("B", adj=0, line=1)
+boxplot(Rarefied~Habitat, data=evenness, at=box.spacing, boxwex=0.1, pch=20, cex=0.5, medlwd = 1, col=colors, xlim=x.lims, cex.axis=0.5, ylab="Rarefied richness")
+mtext("C", adj=0, line=1)
 
 ########################################################################################################################################
 # Partial canonincal correspondence analysis (Fig 3A-B)
@@ -87,35 +89,38 @@ round(sum(pcca$CCA$eig[1:2])/pcca$CCA$tot.chi, 4)*100
 quartz()
 layout(matrix(1:2,1,2))
 site.cols = Habitat
-site.cols[site.cols=="Field"] = "darkgoldenrod4"
-site.cols[site.cols=="NearField"] = "darkgoldenrod1"
-site.cols[site.cols=="Edge"] = "lightgoldenrod2"
-site.cols[site.cols=="NearForest"] = "green"
+site.cols[site.cols=="Field"] = "floralwhite"
+site.cols[site.cols=="NearField"] = "lightgoldenrod1"
+site.cols[site.cols=="Edge"] = "chartreuse2"
+site.cols[site.cols=="NearForest"] = "chartreuse4"
 site.cols[site.cols=="Forest"] = "darkgreen"
 site.pch = c(rep(6,15), rep(5,15), rep(0,15))
-plot(pcca, display=c("sites", "bp"), type="n", xlim=c(-2.5, 2.5), ylim=c(-1, 1), main="Sites")
+plot(pcca, display=c("sites", "bp"), type="n", xlim=c(-2.5, 2.5), ylim=c(-1, 1))
+mtext("A", adj=0, line=1)
 abline(v=0, col="white", lwd=2)
 abline(h=0, col="white", lwd=2)
 abline(v=0, col="lightgray", lwd=0.5, lty=3)
 abline(h=0, col="lightgray", lwd=0.5, lty=3)
 text(pcca, display="bp", col="darkgray", cex=0.5, arrow.mul=2.2)
 points(pcca, scaling=1, display="sites", col=site.cols, pch=site.pch, cex=0.75, font=2)
-points(x=rep(-2.5, 8), y=(c(2.1,2,1.9,1.8,1.7,1.6,1.5,1.4)), pch=c(rep(19,5),6,5,0), cex=0.4, col=c(site.cols[1:5], rep("black", 3)))
+points(x=rep(-2.5, 8), y=(c(2.1,2,1.9,1.8,1.7,1.6,1.5,1.4)+0.3), pch=c(rep(19,5),6,5,0), cex=0.4, col=c(site.cols[1:5], rep("black", 3)))
 legendlabs = c("Field (0 m)", "Near field (90 m)", "Edge (100 m)", "Near forest (110 m)", "Forest (200 m)", "Durham", "Prairie Ridge", "Lake Wheeler")
-text(x=rep(-2.5, 8), y=(c(2.1,2,1.9,1.8,1.7,1.6,1.5,1.4)-0.02), labels=legendlabs, cex=0.4, pos=4)
-plot(pcca, display=c("species", "bp"), col="red", type="n", ylab="", xlim=c(-2, 2), ylim=c(-1, 1), main="Species")
+text(x=rep(-2.5, 8), y=(c(2.1,2,1.9,1.8,1.7,1.6,1.5,1.4)+0.3), labels=legendlabs, cex=0.4, pos=4)
+plot(pcca, display=c("species", "bp"), col="red", type="n", ylab="", xlim=c(-2, 2), ylim=c(-1, 1))
+mtext("B", adj=0, line=1)
 abline(v=0, col="white", lwd=2)
 abline(h=0, col="white", lwd=2)
 abline(v=0, col="lightgray", lwd=0.5, lty=3)
 abline(h=0, col="lightgray", lwd=0.5, lty=3)
 text(pcca, display="bp", col="darkgray", cex=0.5, arrow.mul=1.7)
-text(pcca, scaling=2, display="species", col="black", cex=0.4, font=4)
+text(pcca, scaling=2, display="species", col="black", cex=0.4, font=1)
 
 ##############################################################################################################################
 # Fit GLMMS
 ##############################################################################################################################
 
 # Load package to do GLMMs with negative binomial errors
+#install.packages("glmmADMB", repos=c("http://glmmadmb.r-forge.r-project.org/repos", getOption("repos")), type="source")
 library(glmmADMB)
 
 # Store model output, AIC differences, and predicted values of the best model
@@ -193,7 +198,7 @@ glmm.results
 quartz()
 layout(matrix(1:12, 4, 3))
 par(mar=c(2.9,3.2,1.5,1.5))
-long.names = c("Culex salinarius", "Aedes albopictus", "Aedes cinereus", "Aedes vexans", "Psorophora ferox", "Culex erraticus", "Psorophora columbiae", "Ochlerotatus triseriatus", "Culex pipiens/quinquefasciatus", "Anopheles quadrimaculatus", "Anopheles punctipennis")
+long.names = c("Culex salinarius", "Aedes albopictus", "Aedes cinereus", "Aedes vexans", "Psorophora ferox", "Culex erraticus", "Psorophora columbiae", "Aedes triseriatus", "Culex pipiens/quinquefasciatus", "Anopheles quadrimaculatus", "Anopheles punctipennis")
 for (i in names(linear)) {
   if (which(names(linear)==i) > 4) {ylab = ""} else {ylab = "log(adbundance + 1)"}
   plot(log1p(species[,i]) ~ field.dist, ylab=ylab, xlab="", pch=20, cex=0.5, cex.axis=0.5, cex.lab=0.7, tck=-0.03, mgp=c(2, 0.2, 0), xaxt="n")
@@ -209,6 +214,16 @@ for (i in names(linear)) {
   mtext(paste("n = 45;", p), cex=0.5, adj=1)
 }
 
+##############################################################################################################################
+# Paired t-test for difference in abundance between -10m and 10m (not included in published paper)
+##############################################################################################################################
+
+trap2 = species.common[c(c(1:9)*5)-3,]
+trap4 = species.common[c(c(1:9)*5)-1,]
+ttest = list()
+alt = c("g","t","l","t","l","t","g","l","g","g","t")
+for (i in 1:11) {ttest[[i]] = t.test(trap2[,i], trap4[,i], alternative=alt[i], paired=TRUE)}
+names(ttest) = names(species.common)
 
 ##############################################################################################################################
 # Mood's median test for rare species
@@ -218,7 +233,7 @@ for (i in names(linear)) {
 library(plyr)
 
 # Prepare data frame
-species.rare = species[,setdiff(names(species), names(linear))]
+species.rare = species[,setdiff(names(species), names(species.common))]
 
 # Function to perform Mood's median test (takes dataframe with 2 cols: col1=continuous data, col2=categories)
 moodmedian.test = function (data) {
@@ -246,13 +261,13 @@ mood.results
 ##############################################################################################################################
 
 quartz()
-colors = c("darkgoldenrod4", "darkgoldenrod1", "lightgoldenrod2", "green", "darkgreen")
+colors = c("floralwhite", "lightgoldenrod1","chartreuse2", "chartreuse4", "darkgreen")
 box.labs = c("Field", "Field edge", "Edge", "Forest edge", "Forest")
 layout(matrix(1:12, 4, 3))
 par(mar=c(2,2,3,1), mgp=c(2,0.2,0), tck=-0.02)
 box.spacing = 1:5/7
 x.lims = c(0,box.spacing[5] + box.spacing[1])
-long.names2 = c("Ochlerotatus canadensis", "Coquillettidea perturbans", "Anopheles crucians", "Ochlerotatus hendersoni", "Ochlerotatus atlanticus", "Ochlerotatus dupreei", "Psorophora cyanescens", "Psorophora howardi","Aedes japonicus", "Ochlerotatus infirmatus", "Psorophora ciliata", "Urotanaenia sapphirina")
+long.names2 = c("Aedes canadensis", "Coquillettidea perturbans", "Anopheles crucians", "Aedes hendersoni", "Aedes atlanticus", "Aedes dupreei", "Psorophora cyanescens", "Psorophora howardi","Aedes japonicus", "Aedes infirmatus", "Psorophora ciliata", "Urotanaenia sapphirina")
 
 for (i in names(species.rare)) {
   if (which(names(species.rare)==i) > 4) {ylab = ""} else {ylab = "Adbundance"}
