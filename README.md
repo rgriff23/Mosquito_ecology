@@ -19,14 +19,14 @@ install.packages("glmmADMB", repos=c("http://glmmadmb.r-forge.r-project.org/repo
 getOption("repos")), type="source")
 ```
 
-Note that `glmmADMB` is not available on CRAN. The code above worked for me, but if there are problems installing glmmADMB, see installation tips on the [glmmADMB package website](http://glmmadmb.r-forge.r-project.org/).
+If there are problems installing glmmADMB, see installation tips on the [glmmADMB package website](http://glmmadmb.r-forge.r-project.org/).
 
 ### Data
 
-`FinalData.csv` contains landscape classifications and abundances of different mosquito species for all of the trap sites in our study. 
+`data.csv` contains landscape classifications and abundances of different mosquito species for all of the trap sites in our study. 
 
 ### R code
 
-`FinalAnalysis.R` contains all of the R code to run the analyses and make the figures in our study. 
+`analysis.R` contains all of the R code to run the analyses and make the figures in our study. 
 
 --- 

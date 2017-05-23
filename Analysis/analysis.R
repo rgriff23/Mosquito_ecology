@@ -3,7 +3,6 @@
 ################
 
 # load packages from CRAN
-library(data.table) # for 'fread'
 library(vegan)
 library(plyr)
 
@@ -12,7 +11,7 @@ library(plyr)
 library(glmmADMB)
 
 # import data from GitHub
-data <- data.frame(fread("https://raw.githubusercontent.com/rgriff23/Mosquito_ecology/master/Analysis/data.csv"), row.names = 1)
+data <- read.csv("https://raw.githubusercontent.com/rgriff23/Mosquito_ecology/master/Analysis/data.csv", row.names = 1)
 
 # habitat is ordered
 data$Habitat <- ordered(data$Habitat, c("Field", "NearField","Edge","NearForest","Forest"))
@@ -92,12 +91,6 @@ text(pcca, scaling=2, display="species", col="black", cex=0.4, font=1)
 # Fit GLMMS #
 #############
 
-# Store model output, AIC differences, and predicted values of the best model
-linear = list()
-quadratic = list()
-predicted = c()
-AICdiff = c()
-
 # Define predictor variables 
 field.dist = rep(c(0, 90, 100, 110, 200), 9)
 transect = data$Transect
@@ -112,6 +105,12 @@ newdata = data.frame(field.dist=0:20*10)
 
 # Prepare data frame (species with >18 non-zero abundance values)
 species.common = abundance.matrix[,which(colSums(abundance.matrix>0)>18)]
+
+# Store model output, AIC differences, and predicted values of the best model
+linear = list()
+quadratic = list()
+predicted = c()
+AICdiff = c()
 
 # Loop through common species
 # Log1p transform for all but Ae.cin and Cx.err
