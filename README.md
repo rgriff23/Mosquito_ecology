@@ -1,12 +1,9 @@
 # Mosquitoes of the Field and Forest: The scale of habitat segregation in a diverse mosquito assemblage
 
 [Michael H. Reiskind](http://www.cals.ncsu.edu/entomology/reiskind), [Randi H. Griffin](http://rgriff23.github.io/), M. Shawn Janairo, and Kristen A. Hopperstad
-
-* MHR designed the study and wrote the manuscript. RHG and MSJ collected and identified mosquitoes. KAH collected landscape data and made the landscape figure. RHG analyzed the data, made data figures, and wrote the statistical methods and results portions of the manuscript. 
-
 ___
 
-This repository contains the data and code for our study on the landscape ecology of mosquito communities in North Carolina. An overview of our study can be found on my [website](http://rgriff23.github.io/projects/mosquitoes.html). A manuscript is in prep for publication as of August 2015.
+This repository contains the data and code for [this study](http://onlinelibrary.wiley.com/doi/10.1111/mve.12193/full) on the landscape ecology of mosquito communities in North Carolina, which was published in the journal *Medical and Veternary Entomology*. I also published a `vegan` tutorial that uses the data from this study on my [blog](https://rgriff23.github.io/2017/05/23/mosquito-community-ecology-in-vegan.html).
 
 ## Analysis
 
